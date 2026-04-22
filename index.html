@@ -666,21 +666,41 @@
     <h2>See You at Manila Gin Festival 2027!</h2>
     <p>Give us your email, and we'll inform you when we have more details.</p>
 
-    <form class="signup-row" id="signup-form" action="https://ginfestival.us8.list-manage.com/subscribe/post?u=7262331c149c07b2ca5657b0a&amp;id=75c8384196&amp;f_id=0008d0e2f0" method="post" target="_blank" novalidate>
+    <form class="signup-row" id="signup-form" novalidate>
       <input class="form-input" type="text" name="FNAME" placeholder="First Name" autocomplete="given-name" required />
       <input class="form-input" type="email" name="EMAIL" placeholder="Email Address" autocomplete="email" required />
-      <div hidden><input type="hidden" name="tags" value="5462389" /></div>
-      <div style="position: absolute; left: -5000px;" aria-hidden="true">
-        <input type="text" name="b_7262331c149c07b2ca5657b0a_75c8384196" tabindex="-1" value="" />
-      </div>
-      <button type="submit" class="btn-teal">Notify Me</button>
+      <button type="submit" class="btn-teal" id="submit-btn">Notify Me</button>
     </form>
 
     <div class="success-msg" id="success-msg" role="status">
       ✓ &nbsp; You're on the list. We'll be in touch soon.
     </div>
 
-    <p class="signup-note">For guests 18 and above. No spam — unsubscribe at any time.</p>
+    <p class="signup-note" id="signup-note">For guests 18 and above. No spam — unsubscribe at any time.</p>
+
+    <script>
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var fname = this.querySelector('[name="FNAME"]').value.trim();
+      var email = this.querySelector('[name="EMAIL"]').value.trim();
+      if (!fname || !email) { alert('Please fill in your name and email.'); return; }
+      var btn = document.getElementById('submit-btn');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      var url = 'https://ginfestival.us8.list-manage.com/subscribe/post-json?u=7262331c149c07b2ca5657b0a&id=75c8384196&f_id=0008d0e2f0&FNAME=' + encodeURIComponent(fname) + '&EMAIL=' + encodeURIComponent(email) + '&tags=5462389&b_7262331c149c07b2ca5657b0a_75c8384196=&c=mcCallback';
+      window.mcCallback = function(data) {
+        document.getElementById('signup-form').style.display = 'none';
+        var msg = document.getElementById('success-msg');
+        msg.style.display = 'block';
+        document.getElementById('signup-note').style.display = 'none';
+        document.body.removeChild(document.getElementById('mc-script'));
+      };
+      var s = document.createElement('script');
+      s.id = 'mc-script';
+      s.src = url;
+      document.body.appendChild(s);
+    });
+    </script>
   </section>
 
   <!-- ══ FOOTER ══ -->
