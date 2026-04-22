@@ -703,28 +703,7 @@
 </div><!-- /site-wrap -->
 </div><!-- /page-shell -->
 
-<script>
-  document.getElementById('signup-form').addEventListener('submit', function(e) {
-    e.preventDefault();
 
-    const fname = this.querySelector('[name="fname"]').value.trim();
-    const email = this.querySelector('[name="email"]').value.trim();
-
-    if (!fname || !email) {
-      alert('Please fill in your name and email.');
-      return;
-    }
-
-    // ── Wire up your form submission here ──
-    // Option A: Mailchimp AJAX endpoint
-    // Option B: Brevo / Klaviyo API
-    // For now, show success state:
-
-    this.style.display = 'none';
-    const msg = document.getElementById('success-msg');
-    msg.style.display = 'block';
-  });
-</script>
 
 </body>
 </html>
